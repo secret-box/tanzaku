@@ -17,7 +17,7 @@
 
   <style scoped>
     :scope .input-group {
-      width: 25em;
+      width: 22em;
       padding-top: 5px;
     }
     :scope .result {
