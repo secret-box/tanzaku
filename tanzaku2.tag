@@ -52,11 +52,11 @@
   </style>
 
   encode(text){
-    return escape(encodeURIComponent(text));
+    return encodeURIComponent(text);
   }
 
   decode(text){
-    return unescape(decodeURIComponent(text));
+    return decodeURIComponent(text);
   }
 
 
