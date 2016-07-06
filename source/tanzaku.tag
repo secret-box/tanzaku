@@ -47,21 +47,24 @@
   </style>
 
   text = "";
-  edit(e){
-    text = e.target.value;
-	if( text == "" ){
-		this.text = "";
-		return
-	}
+  to_tanzaku(str){
+    if( str == "" ){
+      return "";
+    }
 
-    text = text.replace(/[A-Za-z0-9]/g, function(s) {
+    text = str.replace(/[A-Za-z0-9]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
     }).replace(/ /g, "　").replace(/ー|-/g, "｜");
 
     body = text.split('').map(function (elem, index, array){
         return "┃" + elem + "┃";
     });
-    this.text = "┏┷☆\n" + body.join("\n") + "\n★━┛";
+    return "┏┷☆\n" + body.join("\n") + "\n★━┛";
+  }
+
+  edit(e){
+    text = e.target.value;
+    this.text = this.to_tanzaku(text);
   }
 
   tweet(){
