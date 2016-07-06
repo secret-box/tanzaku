@@ -58,7 +58,7 @@
     if( str == "" ){
       return "";
     }
-	console.log(str);
+
     text = str.replace(/[A-Za-z0-9]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
     }).replace(/ /g, "　").replace(/ー|-/g, "｜");
@@ -72,7 +72,9 @@
   edit(e){
     var index = e.target.dataset.id;
     this.items[index] = e.target.value;
-    this.text = this.items.map(this.to_tanzaku).join("\n");
+    this.text = this.items.map(this.to_tanzaku).filter(function (item, index){
+      return item != "";
+    }).join("\n");
   }
 
   add(e){
