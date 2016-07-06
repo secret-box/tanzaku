@@ -109,7 +109,7 @@
   }
 
   tweet(){
-    window.open('https://twitter.com/share?text=' + encodeURIComponent(this.text + "\n短冊ジェネレータ\n"),'','scrollbars=yes,width=500,height=300,left=100,top=100,');
+    window.open('https://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + encodeURIComponent(this.text + "\n短冊ジェネレータ\n"),'','scrollbars=yes,width=500,height=300,left=100,top=100,');
   }
 
   this.my_update();
