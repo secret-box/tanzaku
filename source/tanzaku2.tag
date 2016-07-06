@@ -51,8 +51,24 @@
     }
   </style>
 
+  encode(text){
+    return escape(encodeURIComponent(text));
+  }
+
+  decode(text){
+    return unescape(decodeURIComponent(text));
+  }
+
+
   this.text = "";
-  this.items = [""];
+
+  var hash = location.hash
+  if( hash == "" ){
+    this.items = [""];
+  }
+  else{
+    this.items = hash.slice(1).split("&").map(this.decode)
+  }
 
   to_tanzaku(str){
     if( str == "" ){
@@ -69,12 +85,17 @@
     return "┏┷☆\n" + body.join("\n") + "\n★━┛";
   }
 
-  edit(e){
-    var index = e.target.dataset.id;
-    this.items[index] = e.target.value;
+  my_update(){
     this.text = this.items.map(this.to_tanzaku).filter(function (item, index){
       return item != "";
     }).join("\n");
+    location.replace("#" + this.items.map(this.encode).join("&"));
+  }
+
+  edit(e){
+    var index = e.target.dataset.id;
+    this.items[index] = e.target.value;
+    this.my_update();
   }
 
   add(e){
@@ -84,12 +105,14 @@
   remove(e){
     var index = e.target.dataset.id;
     this.items.splice(index, 1);
-    this.text = this.items.map(this.to_tanzaku).join("\n");
+    this.my_update();
   }
 
   tweet(){
     window.open('https://twitter.com/share?text=' + encodeURIComponent(this.text + "\n短冊ジェネレータ\n"),'','scrollbars=yes,width=500,height=300,left=100,top=100,');
   }
+
+  this.my_update();
 
 
 </tanzaku>
