@@ -6,12 +6,11 @@ html {
 }
 
 body {
-  margin-bottom: 5em;
+  margin-bottom: 110px;
 }
 
 footer {
   bottom: 0;
-  height: 5em;
   position: absolute;
   height: 100px;
   text-align: center;
