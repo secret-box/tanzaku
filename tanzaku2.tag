@@ -1,9 +1,13 @@
 <tanzaku>
-  <div>
+  <div each="{ item, i in items }">
     <div class='input-group'>
-      <input name="input" onkeyup={ edit } class='form-control' placeholder='ねがいごとをかいてね' type='text'>
+      <input name="input" onkeyup={ edit } class='form-control' placeholder='ねがいごとをかいてね' type='text' data-id={ i } value="{ item }">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" onclick={ i == 0 ? add : remove } data-id={ i }>{ i == 0 ? "ついか" : "けす" }</button>
+      </span>
     </div>
   </div>
+
   <div class="result" show={ text != "" }>
     <pre>{ text }</pre>
   </div>
@@ -13,7 +17,8 @@
 
   <style scoped>
     :scope .input-group {
-      width: 20em;
+      width: 25em;
+      padding-top: 5px;
     }
     :scope .result {
       padding-top: 15px;
@@ -46,7 +51,9 @@
     }
   </style>
 
-  text = "";
+  this.text = "";
+  this.items = [""];
+
   to_tanzaku(str){
     if( str == "" ){
       return "";
@@ -63,8 +70,21 @@
   }
 
   edit(e){
-    text = e.target.value;
-    this.text = this.to_tanzaku(text);
+    var index = e.target.dataset.id;
+    this.items[index] = e.target.value;
+    this.text = this.items.map(this.to_tanzaku).filter(function (item, index){
+      return item != "";
+    }).join("\n");
+  }
+
+  add(e){
+    this.items.push("");
+  }
+
+  remove(e){
+    var index = e.target.dataset.id;
+    this.items.splice(index, 1);
+    this.text = this.items.map(this.to_tanzaku).join("\n");
   }
 
   tweet(){
