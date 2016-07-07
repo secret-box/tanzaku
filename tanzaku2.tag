@@ -77,7 +77,7 @@
 
     text = str.replace(/[A-Za-z0-9]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
-    }).replace(/ /g, "　").replace(/ー|-/g, "｜");
+    }).replace(/ /g, "　").replace(/ー|-/g, "｜").replace(/。/g, "︒").replace(/、/g, "︑");;;
 
     body = text.split('').map(function (elem, index, array){
         return "┃" + elem + "┃";
